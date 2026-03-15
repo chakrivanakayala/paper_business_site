@@ -19,7 +19,7 @@ from django.urls import path
 from . import views # views file ni import cheskondi
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('secret-admin-portal-99/', admin.site.urls),
     path('', views.home, name='home'), # Home page link
 ]
 
