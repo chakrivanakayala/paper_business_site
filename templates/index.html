@@ -1,0 +1,125 @@
+{% load static %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Paper Business Website</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Mee Paper Business</a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="#products">Products</a>
+                <a class="nav-link" href="#order">Order Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <h1>Maa Paper Business ki Swagatham</h1>
+        <p>Memu andinche paper bundles chala quality ga untayi. Wholesale prices ki dorukuthayi.</p>
+    </div>
+
+    <div id="products" style="text-align: center; margin: 20px;">
+        <h2>Maa Quality Paper Samples</h2>
+        
+        <img src="{% static 'images/a4_paper.jpg' %}" 
+            alt="Our Paper Bundle" 
+            style="border: 5px solid #ddd; border-radius: 10px; width: 300px;">
+        
+        <p><i>Premium 75 GSM A4 White Paper</i></p>
+    </div>
+
+    <div style="margin: 20px; text-align: center;">
+        <h3>Maa Paper Prices:</h3>
+        <table border="1" style="margin: 0 auto; width: 60%; border-collapse: collapse;">
+            <tr style="background-color: #ddd;">
+                <th>Paper Type</th>
+                <th>GSM</th>
+                <th>Price (per bundle)</th>
+            </tr>
+            <tr>
+                <td>A4 White Paper</td>
+                <td>75 GSM</td>
+                <td>₹250</td>
+            </tr>
+            <tr>
+                <td>Kraft Paper</td>
+                <td>120 GSM</td>
+                <td>₹400</td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="order" class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h3>Place Your Order</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" name="customer_name" class="form-control" placeholder="Enter your name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Paper Type</label>
+                                <input type="text" name="paper_type" class="form-control" placeholder="e.g. 75 GSM A4" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Quantity</label>
+                                <input type="number" name="quantity" class="form-control" placeholder="Number of bundles" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Submit Order</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5 mb-5">
+        <h2 class="text-center mb-4">Recent Orders (Dashboard)</h2>
+        <div class="table-responsive shadow-sm">
+            <table class="table table-hover table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>Paper Type</th>
+                        <th>Quantity</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{ order.customer_name }}</td>
+                        <td>{{ order.paper_type }}</td>
+                        <td>{{ order.quantity }}</td>
+                        <td>{{ order.order_date|date:"d M, Y" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center">Inka ye orders raledhu.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="contact" style="background: #34495e; color: white; padding: 20px; margin-top: 30px; text-align: center;">
+        <h3>Contact Us:</h3>
+        <p>Address: Mee Area, Mee City.</p>
+        <p>Phone: 999xxxxxxx</p>
+    </div>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
